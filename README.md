@@ -6,5 +6,5 @@ Direct win32 calls to start a process, works in a il2cpp build to start a subpro
 
 InternalServerProcess.cs
 Example how to use it from a unity project (Its not pretty or safe, just left over from when we prototyped this).
-DLLInvoke is called with just the dll name no extention, this allows it to find the dll correctly on linux. (Omit Extention = DLLImport works everywhere)
+DLLImport is called with just the dll name no extention, this allows it to find the dll correctly on linux. (Omit Extention = DLLImport works everywhere)
 
