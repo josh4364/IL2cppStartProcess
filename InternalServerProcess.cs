@@ -10,6 +10,10 @@ namespace Lavender.Systems
         
         [DllImport("StartProcess")]
         static extern uint StartProcess(string dir, string command);
+		
+		[DllImport("StartProcess")]
+		static extern uint StartProcessHidden(string dir, string command); //Process window will be hidden
+		
         [DllImport("StartProcess")]
         static extern int KillProcess(uint pid);
 

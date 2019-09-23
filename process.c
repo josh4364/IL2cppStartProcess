@@ -30,6 +30,35 @@ DWORD StartProcess(const char* dir, const char * command)
 	return pi.dwProcessId;
 }
 
+DWORD StartProcessHidden(const char* dir, const char * command)
+{
+	PROCESS_INFORMATION pi;
+	STARTUPINFO si;
+	ZeroMemory(&si, sizeof(si));
+	si.cb = sizeof(si);
+	ZeroMemory(&pi, sizeof(pi));
+
+	printf("Create process with (%s%s) .\n", dir, command);
+
+	if (!CreateProcess(
+		NULL,   // No module name (use command line)
+		command,        // Command line
+		NULL,           // Process handle not inheritable
+		NULL,           // Thread handle not inheritable
+		FALSE,          // Set handle inheritance to FALSE
+		CREATE_NO_WINDOW,
+		NULL,           // Use parent's environment block
+		dir,           // Use parent's starting directory 
+		&si,            // Pointer to STARTUPINFO structure
+		&pi)           // Pointer to PROCESS_INFORMATION structure
+		)
+	{
+		return GetLastError();
+	}
+
+
+	return pi.dwProcessId;
+}
 
 LPTSTR GetCommandLineArgs()
 {
