@@ -1,6 +1,6 @@
 #include "process.h"
 
-DWORD StartProcess(const char* dir, const char * command)
+DWORD StartProcess(const wchar_t* dir, const wchar_t* command)
 {
 	PROCESS_INFORMATION pi;
 	STARTUPINFO si;
@@ -10,7 +10,7 @@ DWORD StartProcess(const char* dir, const char * command)
 
 	printf("Create process with (%s%s) .\n", dir, command);
 
-	if (!CreateProcess(
+	if (!CreateProcessW(
 		NULL,   // No module name (use command line)
 		command,        // Command line
 		NULL,           // Process handle not inheritable
@@ -30,7 +30,7 @@ DWORD StartProcess(const char* dir, const char * command)
 	return pi.dwProcessId;
 }
 
-DWORD StartProcessHidden(const char* dir, const char * command)
+DWORD StartProcessHidden(const wchar_t* dir, const wchar_t* command)
 {
 	PROCESS_INFORMATION pi;
 	STARTUPINFO si;
@@ -40,7 +40,7 @@ DWORD StartProcessHidden(const char* dir, const char * command)
 
 	printf("Create process with (%s%s) .\n", dir, command);
 
-	if (!CreateProcess(
+	if (!CreateProcessW(
 		NULL,   // No module name (use command line)
 		command,        // Command line
 		NULL,           // Process handle not inheritable

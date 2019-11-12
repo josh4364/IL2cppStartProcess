@@ -8,10 +8,10 @@ namespace Lavender.Systems
     {
         static uint ptr = uint.MaxValue;
         
-        [DllImport("StartProcess")]
+        [DllImport("StartProcess", CharSet = CharSet.Unicode)]
         static extern uint StartProcess(string dir, string command);
 		
-        [DllImport("StartProcess")]
+        [DllImport("StartProcess", CharSet = CharSet.Unicode)]
         static extern uint StartProcessHidden(string dir, string command); //Process window will be hidden
 		
         [DllImport("StartProcess")]
