@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -6,16 +6,7 @@ namespace Lavender.Systems
 {
     internal static class InternalServerProcess
     {
-        static uint ptr = uint.MaxValue;
-        
-        [DllImport("StartProcess", CharSet = CharSet.Unicode)]
-        static extern uint StartProcess(string dir, string command);
-		
-        [DllImport("StartProcess", CharSet = CharSet.Unicode)]
-        static extern uint StartProcessHidden(string dir, string command); //Process window will be hidden
-		
-        [DllImport("StartProcess")]
-        static extern int KillProcess(uint pid);
+        static uint ptr = 0;
 
         public static void Start()
         {
@@ -32,13 +23,13 @@ namespace Lavender.Systems
 
                 var args = $" -batchmode -nographics -server -logFile \"server_log.txt\" -ini ~{settings}~";
                 Debug.Log($"Args:{args}");
-                if (ptr != uint.MaxValue)
+                if (ptr != 0)
                 {
                     Debug.Log("Internal server process already exists");
                 }
                 else
                 {
-                    ptr = StartProcess(Directory.GetCurrentDirectory(), processPath + args);
+                    ptr = StartExternalProcess.StartProcess(Directory.GetCurrentDirectory(), processPath + args);
                     Debug.Log($"pid:{ptr}");
                 }
             }
@@ -52,10 +43,10 @@ namespace Lavender.Systems
         {
             Debug.Log($"killing if running pid:{ptr}");
 
-            if (ptr != uint.MaxValue)
+            if (ptr != 0)
             {
                 Debug.Log($"killing");
-                KillProcess(ptr);
+                StartExternalProcess.KillProcess(ptr);
             }
         }
     }
